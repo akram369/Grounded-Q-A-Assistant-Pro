@@ -194,7 +194,7 @@ with st.sidebar:
         if any_uploaded:
             st.toast("Document uploaded successfully!", icon="📄")
             st.session_state.needs_rebuild = True
-            st.rerun()
+            st.session_state.should_rerun = True
 
     # Show list of docs with delete action
     if docs:
@@ -208,7 +208,7 @@ with st.sidebar:
                     doc.unlink()
                     st.toast(f"Deleted {doc.name}", icon="🗑️")
                     st.session_state.needs_rebuild = True
-                    st.rerun()
+                    st.session_state.should_rerun = True
                 except Exception as e:
                     st.error(f"Error deleting file: {e}")
     else:
@@ -234,14 +234,14 @@ with st.sidebar:
                 status.update(label=f"Index rebuilt! {doc_count} docs, {chunk_count} chunks.", state="complete", expanded=False)
                 st.toast("Search index successfully rebuilt!", icon="✅")
                 st.session_state.needs_rebuild = False
-                st.rerun()
+                st.session_state.should_rerun = True
             except Exception as e:
                 status.update(label="Rebuild failed", state="error")
                 st.error(f"Error rebuilding index: {e}")
                 
     if st.button("🗑️ Clear Chat History", use_container_width=True):
         st.session_state.chat_history = []
-        st.rerun()
+        st.session_state.should_rerun = True
 
 
 # Settings at top of chat
@@ -377,7 +377,12 @@ if user_query:
                         "search_query": answer.search_query,
                         "original_query": user_query
                     })
-                    st.rerun()
+                    st.session_state.should_rerun = True
                     
                 except Exception as e:
                     st.error(f"Error querying backend: {e}")
+
+# Handle deferred rerun at the root level outside any context managers
+if st.session_state.get("should_rerun", False):
+    st.session_state.should_rerun = False
+    st.rerun()

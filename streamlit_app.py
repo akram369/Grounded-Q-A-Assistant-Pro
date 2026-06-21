@@ -13,5 +13,8 @@ src_dir = Path(__file__).parent / "src"
 if str(src_dir) not in sys.path:
     sys.path.insert(0, str(src_dir))
 
-# Import and run the UI script
+# Force reload of document_qa.ui to ensure it re-runs on every user interaction
+if "document_qa.ui" in sys.modules:
+    del sys.modules["document_qa.ui"]
 import document_qa.ui
+
