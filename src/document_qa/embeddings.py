@@ -19,11 +19,13 @@ class SentenceTransformerEmbedder:
     def embed(self, texts: list[str]) -> list[list[float]]:
         if not texts:
             return []
-        vectors = self.model.encode(
-            texts,
-            batch_size=self.batch_size,
-            normalize_embeddings=True,
-            show_progress_bar=len(texts) > self.batch_size,
-        )
+        import torch
+        with torch.no_grad():
+            vectors = self.model.encode(
+                texts,
+                batch_size=self.batch_size,
+                normalize_embeddings=True,
+                show_progress_bar=len(texts) > self.batch_size,
+            )
         return vectors.tolist()
 

@@ -12,5 +12,7 @@ def build_index(settings: Settings, embedder: Embedder, store) -> tuple[int, int
     # The complete text list is passed in one call; the model handles it in configured batches.
     embeddings = embedder.embed([chunk.text for chunk in chunks])
     store.replace(chunks, embeddings)
+    import gc
+    gc.collect()  # Force reclaim memory from the temporary lists and arrays
     return len({page.source for page in pages}), len(chunks)
 

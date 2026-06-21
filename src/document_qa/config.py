@@ -27,7 +27,7 @@ class Settings:
     max_distance: float = 0.85
     chunk_size: int = 1200
     chunk_overlap: int = 180
-    embedding_batch_size: int = 64
+    embedding_batch_size: int = 16
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -48,7 +48,7 @@ class Settings:
             max_distance=float(os.getenv("MAX_DISTANCE", "0.85")),
             chunk_size=int(os.getenv("CHUNK_SIZE", "1200")),
             chunk_overlap=int(os.getenv("CHUNK_OVERLAP", "180")),
-            embedding_batch_size=int(os.getenv("EMBEDDING_BATCH_SIZE", "64")),
+            embedding_batch_size=int(os.getenv("EMBEDDING_BATCH_SIZE", "16")),
         )
 
     def validate(self) -> None:
