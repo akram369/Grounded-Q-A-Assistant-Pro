@@ -9,8 +9,11 @@ class ChromaVectorStore:
     def __init__(self, path: Path, collection_name: str) -> None:
         import chromadb
 
-        path.mkdir(parents=True, exist_ok=True)
-        self.client = chromadb.PersistentClient(path=str(path))
+        if str(path) in ("in_memory", "in-memory"):
+            self.client = chromadb.EphemeralClient()
+        else:
+            path.mkdir(parents=True, exist_ok=True)
+            self.client = chromadb.PersistentClient(path=str(path))
         self.collection_name = collection_name
         self.collection = self.client.get_or_create_collection(
             name=collection_name,
