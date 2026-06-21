@@ -5,7 +5,7 @@ from pathlib import Path
 try:
     __import__('pysqlite3')
     sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-except ImportError:
+except Exception:
     pass
 
 # Add the 'src' directory to the Python path to ensure document_qa is importable
