@@ -53,7 +53,8 @@ class GeminiEmbedder:
                 "requests": [
                     {
                         "model": self.model,
-                        "content": {"parts": [{"text": t}]}
+                        "content": {"parts": [{"text": t}]},
+                        "outputDimensionality": 384  # Keep dimension aligned with MiniLM to prevent mismatch crashes
                     }
                     for t in batch
                 ]
@@ -91,7 +92,8 @@ class OpenAIEmbedder:
             }
             payload = {
                 "input": batch,
-                "model": self.model
+                "model": self.model,
+                "dimensions": 384  # Keep dimension aligned with MiniLM to prevent mismatch crashes
             }
             try:
                 response = requests.post(url, headers=headers, json=payload, timeout=60)
