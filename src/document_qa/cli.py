@@ -4,7 +4,7 @@ import argparse
 import sys
 
 from document_qa.config import Settings
-from document_qa.embeddings import SentenceTransformerEmbedder
+from document_qa.embeddings import get_embedder
 from document_qa.generation import GeminiGenerator, OllamaGenerator, OpenAIGenerator
 from document_qa.indexer import build_index
 from document_qa.rag import RAGPipeline
@@ -12,7 +12,7 @@ from document_qa.vector_store import ChromaVectorStore
 
 
 def _components(settings: Settings):
-    embedder = SentenceTransformerEmbedder(settings.embedding_model, settings.embedding_batch_size)
+    embedder = get_embedder(settings.llm_provider, settings.embedding_model, settings.embedding_batch_size)
     store = ChromaVectorStore(settings.index_dir, settings.collection_name)
     if settings.llm_provider == "gemini":
         generator = GeminiGenerator(settings.gemini_chat_model)
@@ -50,7 +50,7 @@ def main(argv: list[str] | None = None) -> int:
         settings = Settings.from_env()
         settings.validate()
         if args.command == "index":
-            embedder = SentenceTransformerEmbedder(settings.embedding_model, settings.embedding_batch_size)
+            embedder = get_embedder(settings.llm_provider, settings.embedding_model, settings.embedding_batch_size)
             store = ChromaVectorStore(settings.index_dir, settings.collection_name)
             document_count, chunk_count = build_index(settings, embedder, store)
             print(f"Indexed {document_count} documents into {chunk_count} chunks at {settings.index_dir}")

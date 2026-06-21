@@ -5,7 +5,7 @@ from pathlib import Path
 from document_qa.config import Settings
 from document_qa.rag import RAGPipeline, NOT_FOUND
 from document_qa.indexer import build_index
-from document_qa.embeddings import SentenceTransformerEmbedder
+from document_qa.embeddings import get_embedder
 from document_qa.vector_store import ChromaVectorStore
 from document_qa.generation import GeminiGenerator, OpenAIGenerator, OllamaGenerator
 
@@ -63,8 +63,8 @@ settings = st.session_state.settings
 
 # Cache embedder and vector store loading
 @st.cache_resource
-def get_cached_components(embedding_model: str, embedding_batch_size: int, index_dir_str: str, collection_name: str):
-    embedder = SentenceTransformerEmbedder(embedding_model, embedding_batch_size)
+def get_cached_components(llm_provider: str, embedding_model: str, embedding_batch_size: int, index_dir_str: str, collection_name: str):
+    embedder = get_embedder(llm_provider, embedding_model, embedding_batch_size)
     store = ChromaVectorStore(Path(index_dir_str), collection_name)
     return embedder, store
 
@@ -97,17 +97,17 @@ st.markdown("""
 st.markdown("<h1 class='main-title'>🔍 Grounded Q&A Assistant Pro</h1>", unsafe_allow_html=True)
 st.markdown("<p class='main-subtitle'>Ask questions grounded strictly in your local knowledge base documents with inline citations and transparent retrieval audit.</p>", unsafe_allow_html=True)
 
-# Try loading components
 try:
-    with st.spinner("Downloading/Loading SentenceTransformers embedding model and ChromaDB database... (This might take 1-2 minutes on first startup on Streamlit Cloud)"):
+    with st.spinner("Loading search index components..."):
         embedder, store = get_cached_components(
+            settings.llm_provider,
             settings.embedding_model,
             settings.embedding_batch_size,
             str(settings.index_dir),
             settings.collection_name
         )
 except Exception as exc:
-    st.error(f"Error loading local SentenceTransformers embedder or ChromaDB: {exc}")
+    st.error(f"Error loading embedder or ChromaDB: {exc}")
     st.stop()
 
 # Sidebar UI
