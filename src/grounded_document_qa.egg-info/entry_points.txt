@@ -1,0 +1,2 @@
+[console_scripts]
+document-qa = document_qa.cli:main

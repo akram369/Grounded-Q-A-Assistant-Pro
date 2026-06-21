@@ -1,0 +1,38 @@
+ZERO TRUST SECURITY FOR A MID-SIZED ORGANIZATION
+
+The central idea
+
+Zero trust is a security strategy built around continuous verification and limited access. It does not mean that employees are treated as adversaries, nor is it a single product. Traditional networks often assumed that a device inside the office perimeter could be trusted. Cloud services, remote work, contractors, mobile devices, and stolen credentials make that assumption unsafe. A zero trust program evaluates identity, device condition, requested resource, context, and risk before granting access, then continues to observe the session.
+
+The practical principle is “never trust implicitly; verify explicitly.” Every request should receive only the access it needs. A successful program reduces the blast radius of a compromised account or device. It also produces clearer evidence about who accessed which resource and under what conditions. The approach should be introduced incrementally because abrupt restrictions can interrupt work and encourage users to find unsafe workarounds.
+
+Inventory and classification
+
+An organization cannot protect resources it has not identified. The starting inventory includes users, service accounts, devices, applications, data stores, network services, and external dependencies. Ownership matters: every critical system needs a business owner who can describe its users and acceptable downtime. Data should be classified by sensitivity and regulatory obligations. A public marketing page needs different controls from payroll records, source code, or clinical data.
+
+Teams should map important data flows rather than attempting to diagram every packet. For example, the payroll process may involve a human-resources application, an identity provider, a bank interface, administrator workstations, and audit storage. Mapping reveals hidden service accounts, broad permissions, and old integrations. It also helps define protect surfaces: small sets of high-value resources that can receive stronger controls before the entire environment is modernized.
+
+Identity controls
+
+Strong identity is the usual first implementation step. Multi-factor authentication should cover administrators and remote access first, followed by all users. Phishing-resistant methods such as passkeys or hardware security keys provide stronger protection than codes sent by text message. Single sign-on reduces password reuse and centralizes policy, but the identity provider becomes critical infrastructure and needs hardened administration, backup access procedures, monitoring, and recovery plans.
+
+Access decisions should use roles and attributes. A finance analyst might need payroll reports but not the ability to change identity settings. Temporary elevation is safer than permanent administrator rights. Joiner, mover, and leaver processes must promptly add, adjust, and remove access as people change roles. Service accounts require owners, narrowly scoped permissions, rotated credentials, and alerts for unusual use. Emergency “break glass” accounts should be few, strongly protected, tested, and monitored.
+
+Device and workload health
+
+Identity alone is insufficient when malware controls an authenticated laptop. Device checks can require supported operating systems, disk encryption, endpoint protection, screen locking, and recent security updates. Managed devices can receive broader access than unknown devices. A contractor on a personal computer might use a browser-isolated session or a managed virtual desktop instead of downloading sensitive files.
+
+Workloads also have identities. Applications, containers, and automated jobs should authenticate with short-lived credentials rather than embedded passwords. Secrets belong in a managed vault, not source code or configuration committed to a repository. Network segmentation limits unnecessary paths between services. Microsegmentation is most useful around clearly understood applications; attempting it before mapping dependencies can cause outages.
+
+Policy enforcement and monitoring
+
+Policy enforcement points sit between a requester and a resource. They may be identity-aware proxies, application gateways, endpoint agents, cloud controls, or network devices. The policy engine considers signals such as user role, device compliance, location, time, resource sensitivity, and current threat intelligence. High-risk behavior can require stronger authentication, restrict downloads, or block access. Policies need a clear reason and an owner, otherwise exceptions accumulate until the system is neither secure nor understandable.
+
+Logs from identity, endpoints, applications, and cloud platforms should use synchronized time and flow into central analysis. Useful alerts identify impossible travel, unusual privilege changes, mass downloads, disabled security agents, or a service account used interactively. Collecting every possible log without retention priorities creates cost and noise. The security team should connect detections to response playbooks and regularly test whether alerts reach a person who can act.
+
+Implementation roadmap
+
+A mid-sized organization can begin with one important business process. Baseline how it works, enable strong authentication, remove unused privileges, require healthy managed devices, segment key services, and monitor access. Run in report-only mode before enforcement when the platform permits it. Measure blocked legacy authentication, reduction in standing privileges, time to remove departed users, device compliance, incident containment, and help-desk impact.
+
+Zero trust is an operating model, not a finish line. Acquisitions, new cloud services, staff turnover, and changing threats continually alter the environment. Governance should include security, IT operations, application owners, legal or compliance teams, and user representatives. Clear communication is essential: people are more likely to accept an additional verification step when they understand what triggers it and how to recover access. Good security reduces silent assumptions while preserving a usable path for legitimate work.
+

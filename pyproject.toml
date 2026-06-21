@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "grounded-document-qa"
+version = "1.0.0"
+description = "A small, transparent document Q&A bot built with retrieval-augmented generation."
+requires-python = ">=3.11"
+dependencies = [
+  "chromadb==1.0.15",
+  "google-genai==2.9.0",
+  "openai==1.97.0",
+  "pypdf==5.8.0",
+  "python-docx==1.2.0",
+  "python-dotenv==1.1.1",
+  "requests==2.32.4",
+  "sentence-transformers==5.0.0",
+]
+
+[project.scripts]
+document-qa = "document_qa.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+

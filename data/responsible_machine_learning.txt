@@ -1,0 +1,40 @@
+RESPONSIBLE MACHINE LEARNING: FROM PROBLEM FORMULATION TO MONITORING
+
+Start with the decision
+
+A machine-learning project should begin with the decision it is meant to improve, not with an available dataset. Teams need to identify who will use the prediction, who will be affected, what action follows, and what happens when the model is wrong. A model that ranks maintenance inspections has different risks from one that influences credit, employment, or medical care. Sometimes a rules-based system, better data access, or a redesigned process solves the problem with less complexity.
+
+The objective function rarely captures every real goal. Optimizing click-through rate can reward sensational content. Minimizing average error can hide severe mistakes for a small group. Product owners, domain experts, engineers, and affected stakeholders should document intended use, prohibited use, success criteria, and acceptable failure modes. They should also specify where human review is required and whether a person can override or appeal a result.
+
+Data provenance and quality
+
+Training data reflects the process that produced it. Labels may encode historical decisions rather than ground truth. Missing records can be systematic: people with poor access to services may appear less often in a dataset. Measurements collected for billing may be unreliable for clinical research. Data documentation should cover origin, collection period, consent or legal basis, transformations, known gaps, and retention rules. Sensitive attributes deserve particular care, but simply deleting them does not remove correlated proxies.
+
+Dataset splits must follow the real prediction setting. Randomly splitting repeated records from the same person can leak identity patterns into validation. Forecasting tasks usually require time-based splits so future information cannot enter training. If the model will serve new hospitals, regions, or machines, evaluation should hold out entire groups or sites. Duplicates and near-duplicates should be detected before splitting. Feature pipelines used in training and production should share tested code to prevent training-serving skew.
+
+Evaluation beyond one score
+
+No single metric describes a model completely. Classification evaluation may include precision, recall, specificity, calibration, and performance at the chosen decision threshold. The cost of false positives and false negatives determines which trade-off matters. Calibration asks whether events predicted at a probability such as 20 percent occur about 20 percent of the time. Well-ranked but poorly calibrated predictions can lead to bad resource allocation.
+
+Aggregate metrics should be broken down across relevant populations, locations, device types, and time periods. Small groups produce uncertain estimates, so confidence intervals and minimum sample sizes are important. Fairness metrics can conflict: equal false-positive rates, equal recall, and equal positive prediction rates generally cannot all be guaranteed when underlying rates differ. Teams must choose metrics based on the use case and explain the value judgment rather than presenting fairness as a purely mathematical checkbox.
+
+Interpretability and human factors
+
+The amount of explanation needed depends on the audience and consequence. Engineers may need feature diagnostics and failure clusters. An operator needs actionable information, while an affected person may need a plain-language reason and a route to correction. Feature importance describes association within a model, not causation. Local explanation techniques can be unstable when inputs are correlated. Explanations should therefore be tested with their intended users rather than accepted because a chart looks plausible.
+
+Human review is not automatically a safeguard. Reviewers can become over-reliant on a model, especially when workloads are high or the interface emphasizes a confident score. A meaningful review process gives enough time and relevant evidence, records disagreements, and does not punish justified overrides. Automation should not obscure accountability. A named business owner remains responsible for the decision process even when an external vendor supplies the model.
+
+Deployment controls
+
+Before launch, teams should complete privacy, security, safety, and operational reviews proportionate to risk. A model card can summarize purpose, data, evaluation, limitations, and ethical considerations. Versioned artifacts should connect code, data snapshots, features, parameters, and approval records. Access to training data and prediction logs should follow least privilege. Adversarial testing is important for public inputs, language models, fraud systems, and other environments where users may intentionally probe weaknesses.
+
+Rollout can begin with shadow mode, where predictions are logged without affecting decisions. A canary release exposes a small portion of traffic and supports fast rollback. Teams should test fallback behavior when features are missing, a dependency is unavailable, or latency rises. The production system needs rate limits, input validation, audit logging, and a clear incident owner. Reproducibility includes not just rebuilding a model but understanding which version made a particular decision.
+
+Monitoring and retirement
+
+Production monitoring covers service health, data quality, model behavior, and real outcomes. Input drift indicates that feature distributions changed; concept drift means the relationship between inputs and outcomes changed. Neither can be diagnosed from accuracy when true labels arrive months late. Proxy signals, delayed evaluation, and periodic sampling may be needed. Alerts should have thresholds, owners, and response playbooks so dashboards do not become decorative.
+
+Feedback loops deserve special attention. A fraud model may prevent transactions and therefore remove examples that would reveal whether its predictions were correct. A recommendation model changes what users see, which changes the data used for future training. Monitoring should search for these selection effects and compare against controlled samples where ethical and feasible. Complaints, appeals, and operator overrides are valuable signals, not merely support costs.
+
+Models should have retirement criteria. A model can become unnecessary after a policy change, too expensive to maintain, or unsafe under new conditions. Decommissioning includes disabling endpoints, removing scheduled jobs, preserving required audit records, and deleting data according to retention policy. Responsible machine learning is therefore a lifecycle discipline. It combines technical validation with governance, user research, and operational readiness from the first problem statement through the final shutdown.
+

@@ -1,0 +1,32 @@
+URBAN HEAT RESILIENCE: A PRACTICAL GUIDE FOR CITIES
+
+Why cities become hotter
+
+Urban heat is not simply ordinary summer weather occurring in a crowded place. Buildings, roads, parking areas, and other dark surfaces absorb solar energy during the day and release it slowly after sunset. At the same time, replacing vegetation with sealed surfaces reduces shade and evaporative cooling. Waste heat from traffic, air conditioners, and industry adds another source. Together these processes create an urban heat island: a city can remain several degrees warmer than nearby rural land, especially at night. The effect varies block by block. A leafy district with parks may be substantially cooler than a nearby warehouse district with broad roofs and little tree cover.
+
+Heat risk depends on more than temperature. Humidity limits the body's ability to cool itself by sweating, while warm nights prevent physical recovery. Age, chronic illness, pregnancy, outdoor work, housing quality, and access to cooling all affect vulnerability. Social isolation is particularly dangerous because a person experiencing confusion or dehydration may not seek help. Electricity outages can transform a difficult heat event into an emergency by disabling air conditioning, lifts, medical devices, refrigeration, and communication systems.
+
+Mapping risk before acting
+
+A useful heat plan combines physical measurements with social information. Satellite imagery can estimate surface temperature, but it does not directly measure the air temperature that a person experiences. Cities therefore pair satellite maps with fixed weather sensors, mobile measurements, shade surveys, and building data. Public-health records can reveal where emergency calls and hospital admissions rise during hot periods. Demographic and housing data help identify neighborhoods where residents are more likely to live alone, work outdoors, or lack efficient cooling.
+
+Mapping should lead to decisions rather than become an end in itself. A city can rank locations such as schools, transit stops, clinics, public-housing blocks, and busy pedestrian routes. Community organizations should review the maps because they often know about unrecorded conditions: a cooling center that is difficult to reach, a park that feels unsafe after dark, or an apartment block whose windows cannot be opened. Publishing methods and uncertainty also helps residents understand why one area receives attention before another.
+
+Cooling the public realm
+
+Trees are among the most effective neighborhood-scale interventions because they provide shade and cool air through evapotranspiration. Species selection matters. A healthy canopy requires trees suited to the local climate, adequate soil volume, water during establishment, and long-term maintenance. Planting hundreds of saplings without funding care can produce impressive announcements but little durable cooling. Cities should prioritize routes people actually use and avoid blocking pavements or damaging underground services. Diverse species reduce the risk that one pest or disease destroys the canopy.
+
+Cool roofs use light-colored or reflective materials to reduce solar heat gain. They can lower indoor temperatures in top-floor rooms and reduce cooling demand. Green roofs add vegetation and may retain stormwater, although they cost more and require structural assessment and maintenance. Permeable, lighter pavements can reduce surface heating in some settings, but glare, durability, and lifecycle emissions must be considered. Shade structures at bus stops, schoolyards, and markets offer quicker relief while trees mature.
+
+Protecting people during a heatwave
+
+Emergency measures should be triggered by health risk, not by a single temperature number. Forecasts can combine daytime heat, nighttime temperature, humidity, duration, and local health evidence. Once a threshold is reached, the city can extend pool and library hours, open accessible cooling spaces, adjust outdoor work, contact isolated residents, and communicate in the languages people use. Messages should state what to do, where to go, how to recognize heat illness, and whom to call.
+
+Cooling centers only work when people can reach and trust them. Effective plans include free transport, disability access, drinking water, safe storage for medicines, permission for service animals, and opening hours that cover hot evenings. Some residents will not leave pets or homes unattended, so home visits and portable cooling support remain important. Schools and care facilities need specific plans for hydration, medication storage, indoor temperature monitoring, and staff response.
+
+Measuring progress
+
+Cities should track outcomes rather than counting activities alone. Useful indicators include indoor temperatures in vulnerable housing, shaded walking distance, tree survival after three years, emergency visits during heat events, cooling-center use, household energy burden, and the reliability of electricity in critical facilities. Evaluation should also test for unintended effects. Greening may raise property values and displace the residents it was intended to protect unless housing safeguards accompany investment.
+
+Heat resilience is therefore a portfolio, not a single project. Land-use design, healthy housing, public health, emergency management, energy reliability, and social connection reinforce one another. The strongest strategy pairs immediate protection for dangerous days with long-term changes to streets and buildings. It treats residents as partners, directs resources according to risk, and revises actions as measurements reveal what is working.
+
