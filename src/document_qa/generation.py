@@ -121,33 +121,42 @@ class OpenAIGenerator:
 
 class GeminiGenerator:
     def __init__(self, model: str) -> None:
-        from google import genai
-
-        if not os.getenv("GEMINI_API_KEY"):
+        self.api_key = os.getenv("GEMINI_API_KEY")
+        if not self.api_key:
             raise ValueError("GEMINI_API_KEY is required when LLM_PROVIDER=gemini")
-        self.client = genai.Client()
         self.model = model
 
     def generate(self, question: str, sources: list[RetrievedChunk]) -> str:
-        from google.genai import types
-
         prompt = build_prompt(question, sources)
-        config = types.GenerateContentConfig(
-            system_instruction=SYSTEM_PROMPT,
-            temperature=0.0,
-        )
-        response = self.client.models.generate_content(
-            model=self.model,
-            contents=prompt,
-            config=config,
-        )
-        return (response.text or "").strip()
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:generateContent?key={self.api_key}"
+        payload = {
+            "contents": [
+                {
+                    "parts": [
+                        {"text": prompt}
+                    ]
+                }
+            ],
+            "generationConfig": {
+                "temperature": 0.0
+            },
+            "systemInstruction": {
+                "parts": [
+                    {"text": SYSTEM_PROMPT}
+                ]
+            }
+        }
+        try:
+            response = requests.post(url, json=payload, timeout=60)
+            response.raise_for_status()
+            res_json = response.json()
+            return res_json["candidates"][0]["content"]["parts"][0]["text"].strip()
+        except Exception as e:
+            raise RuntimeError(f"Gemini API call failed: {e}")
 
     def rewrite_query(self, question: str, history: list[dict[str, str]]) -> str:
         if not history:
             return question
-        from google.genai import types
-
         history_lines = []
         for turn in history:
             role = "User" if turn["role"] == "user" else "Assistant"
@@ -155,17 +164,29 @@ class GeminiGenerator:
         history_str = "\n".join(history_lines)
 
         prompt = f"Conversation History:\n{history_str}\n\nFollow-up question: {question}\n\nRewritten standalone question:"
-        config = types.GenerateContentConfig(
-            system_instruction=REWRITE_SYSTEM_PROMPT,
-            temperature=0.0,
-        )
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:generateContent?key={self.api_key}"
+        payload = {
+            "contents": [
+                {
+                    "parts": [
+                        {"text": prompt}
+                    ]
+                }
+            ],
+            "generationConfig": {
+                "temperature": 0.0
+            },
+            "systemInstruction": {
+                "parts": [
+                    {"text": REWRITE_SYSTEM_PROMPT}
+                ]
+            }
+        }
         try:
-            response = self.client.models.generate_content(
-                model=self.model,
-                contents=prompt,
-                config=config,
-            )
-            return (response.text or "").strip()
+            response = requests.post(url, json=payload, timeout=30)
+            response.raise_for_status()
+            res_json = response.json()
+            return res_json["candidates"][0]["content"]["parts"][0]["text"].strip()
         except Exception:
             return question
 

@@ -284,7 +284,7 @@ for message in st.session_state.chat_history:
                 }, index=names)
                 
                 st.markdown("**Cosine Similarity per Chunk:** (Higher is more relevant)")
-                st.bar_chart(df_chart, y_label="Cosine Similarity")
+                st.bar_chart(df_chart)
 
 # Quick chips selection
 st.markdown("<p style='font-size:0.9rem; font-weight:600; margin-bottom:0.4rem;'>💡 Try a sample question:</p>", unsafe_allow_html=True)
@@ -367,7 +367,7 @@ if user_query:
                                 "Cosine Similarity": similarities
                             }, index=names)
                             st.markdown("**Cosine Similarity per Chunk:** (Higher is more relevant)")
-                            st.bar_chart(df_chart, y_label="Cosine Similarity")
+                            st.bar_chart(df_chart)
                                     
                     # Add assistant reply to history
                     st.session_state.chat_history.append({
