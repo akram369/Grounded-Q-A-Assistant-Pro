@@ -68,14 +68,44 @@ def get_cached_components(embedding_model: str, embedding_batch_size: int, index
     store = ChromaVectorStore(Path(index_dir_str), collection_name)
     return embedder, store
 
+# Custom Premium CSS Injection
+st.markdown("""
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap');
+    
+    html, body, [class*="css"] {
+        font-family: 'Outfit', sans-serif;
+    }
+    
+    .main-title {
+        background: linear-gradient(135deg, #6366f1 0%, #14b8a6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 2.6rem;
+        font-weight: 800;
+        margin-bottom: 0.1rem;
+        margin-top: -1.5rem;
+    }
+    .main-subtitle {
+        color: #71717a;
+        font-size: 1.05rem;
+        margin-bottom: 1.5rem;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("<h1 class='main-title'>🔍 Grounded Q&A Assistant Pro</h1>", unsafe_allow_html=True)
+st.markdown("<p class='main-subtitle'>Ask questions grounded strictly in your local knowledge base documents with inline citations and transparent retrieval audit.</p>", unsafe_allow_html=True)
+
 # Try loading components
 try:
-    embedder, store = get_cached_components(
-        settings.embedding_model,
-        settings.embedding_batch_size,
-        str(settings.index_dir),
-        settings.collection_name
-    )
+    with st.spinner("Downloading/Loading SentenceTransformers embedding model and ChromaDB database... (This might take 1-2 minutes on first startup on Streamlit Cloud)"):
+        embedder, store = get_cached_components(
+            settings.embedding_model,
+            settings.embedding_batch_size,
+            str(settings.index_dir),
+            settings.collection_name
+        )
 except Exception as exc:
     st.error(f"Error loading local SentenceTransformers embedder or ChromaDB: {exc}")
     st.stop()
@@ -213,34 +243,6 @@ with st.sidebar:
         st.session_state.chat_history = []
         st.rerun()
 
-# Custom Premium CSS Injection
-st.markdown("""
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap');
-    
-    html, body, [class*="css"] {
-        font-family: 'Outfit', sans-serif;
-    }
-    
-    .main-title {
-        background: linear-gradient(135deg, #6366f1 0%, #14b8a6 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 2.6rem;
-        font-weight: 800;
-        margin-bottom: 0.1rem;
-        margin-top: -1.5rem;
-    }
-    .main-subtitle {
-        color: #71717a;
-        font-size: 1.05rem;
-        margin-bottom: 1.5rem;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown("<h1 class='main-title'>🔍 Grounded Q&A Assistant Pro</h1>", unsafe_allow_html=True)
-st.markdown("<p class='main-subtitle'>Ask questions grounded strictly in your local knowledge base documents with inline citations and transparent retrieval audit.</p>", unsafe_allow_html=True)
 
 # Settings at top of chat
 col_rewriter, col_gap = st.columns([0.4, 0.6])
