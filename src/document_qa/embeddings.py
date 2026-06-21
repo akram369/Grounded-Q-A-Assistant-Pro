@@ -33,7 +33,7 @@ class SentenceTransformerEmbedder:
 
 
 class GeminiEmbedder:
-    def __init__(self, api_key: str | None = None, model: str = "models/text-embedding-004") -> None:
+    def __init__(self, api_key: str | None = None, model: str = "models/gemini-embedding-2") -> None:
         self.api_key = api_key or os.getenv("GEMINI_API_KEY")
         if not self.api_key:
             raise ValueError("GEMINI_API_KEY is required for GeminiEmbedder")
@@ -48,7 +48,7 @@ class GeminiEmbedder:
         batch_size = 100
         for i in range(0, len(texts), batch_size):
             batch = texts[i : i + batch_size]
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:batchEmbedContents?key={self.api_key}"
+            url = f"https://generativelanguage.googleapis.com/v1beta/{self.model}:batchEmbedContents?key={self.api_key}"
             payload = {
                 "requests": [
                     {
